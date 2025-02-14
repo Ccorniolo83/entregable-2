@@ -1,2 +1,2 @@
-# entregable-2
-entregable curso python 2025, aplicacion comercial
+# demo2
+Proyecto Integrador de curso de python
