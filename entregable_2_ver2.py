@@ -120,7 +120,7 @@ class App(tk.Tk):
 
     def actualizar_precios(self):
         try:
-            respues ta = requests.get('https://api.dolarsi.com/api.php?type=valoresprincipales')
+            respuesta = requests.get('https://api.dolarsi.com/api.php?type=valoresprincipales')
             datos = respuesta.json()
             precio_dolar = datos[0]['casa']['venta']
 
