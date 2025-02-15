@@ -119,18 +119,21 @@ class App(tk.Tk):
             messagebox.showinfo("Ventas por Fecha", f"Ventas en el rango seleccionado:\n{resumen.to_string()}")
 
     def actualizar_precios(self):
-        respuesta = requests.get('https://api.dolarsi.com/api.php?type=valoresprincipales')
-        datos = respuesta.json()
-        precio_dolar = datos[0]['casa']['venta']
+        try:
+            respues ta = requests.get('https://api.dolarsi.com/api.php?type=valoresprincipales')
+            datos = respuesta.json()
+            precio_dolar = datos[0]['casa']['venta']
 
-        for i in range(len(self.productos)):
-            self.productos[i][2] = str(float(self.productos[i][2]) * float(precio_dolar))
+            for i in range(len(self.productos)):
+                self.productos[i][2] = str(float(self.productos[i][2]) * float(precio_dolar))
 
-        with open('productos.csv', 'w', newline='') as archivo:
-            writer = csv.writer(archivo)
-            writer.writerows(self.productos)
+            with open('productos.csv', 'w', newline='') as archivo:
+                writer = csv.writer(archivo)
+                writer.writerows(self.productos)
 
-        messagebox.showinfo("Precio actualizado", "El precio ha sido actualizado correctamente.")
+            messagebox.showinfo("Precio actualizado", "El precio ha sido actualizado correctamente.")
+        except requests.exceptions.RequestException as e:
+            messagebox.showerror("Error", f"No se pudo actualizar el precio: {e}")
 
     def graficar_historial(self):
         try:
